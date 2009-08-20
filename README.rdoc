@@ -8,9 +8,7 @@ to produce clean (X)HTML rendered by templating systems such as ERb.
 Rack::Tidy relies on the power of the Tidy gem and defaults to settings
 based on convention. However, you can override these through configuration.
 
-For more information about the Rack specification, check out 
-
-http://rack.rubyforge.org/
+For more information about the Rack specification, check out http://rack.rubyforge.org
 
 == Installation
 
