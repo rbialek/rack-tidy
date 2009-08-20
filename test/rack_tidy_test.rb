@@ -20,14 +20,14 @@ class RackTidyTest < Test::Unit::TestCase
       should "clean response body" do
         assert_equal CLEAN_HTML, @response.body
       end
-      
+            
       context "with ignore paths containing one item that matches current path" do        
         setup do 
           @response = get_response('/cms', DIRTY_HTML, 'text/html', :ignore_paths => '/cms')
         end
         should "not clean response body" do
           assert_equal DIRTY_HTML, @response.body
-        end
+        end        
       end
       
       context "with ignore paths containing array of items with one matching current path" do
@@ -53,7 +53,7 @@ class RackTidyTest < Test::Unit::TestCase
           assert_equal CLEAN_HTML, @response.body
         end
       end
-    
+          
       context "with 'indent-spaces' set to 4" do
         setup do
           @response = get_response('/',
@@ -83,6 +83,20 @@ class RackTidyTest < Test::Unit::TestCase
       end
       should "not clean response body" do
         assert_equal JS, @response.body
+      end
+    end
+  
+    context "with ignore path set and multiple requests" do
+      setup do
+        app = Rack::Builder.new do
+          use Rack::Tidy, :ignore_paths => '/cms'
+          run lambda { |env| [200, {'Content-Type' => 'text/html'}, [DIRTY_HTML] ] }
+        end
+        Rack::MockRequest.new(app).get('/')
+        @response = Rack::MockRequest.new(app).get('/cms')
+      end
+      should "not clean response body" do
+        assert_equal DIRTY_HTML, @response.body
       end
     end
   end

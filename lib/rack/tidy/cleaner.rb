@@ -17,12 +17,12 @@ module Rack::Tidy
     
     # Paths to be ignored during Rack::Tidy processing
     attr_accessor :ignore_paths
-            
+                
     def initialize(app, options = {})
       ::Tidy.path = TIDY_LIB
       @app = app
-      @ignore_paths = options.delete(:ignore_paths) || []
-      @tidy_options = DEFAULT_TIDY_OPTS.merge(options)
+      self.ignore_paths = options[:ignore_paths] || []
+      self.tidy_options = DEFAULT_TIDY_OPTS.merge(options)
     end
     
     # method required by Rack interface
