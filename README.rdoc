@@ -1,18 +1,87 @@
-= rack-tidy
+= Tidy Markup Cleaner for Rack
 
-Description goes here.
+Rack::Tidy cleans text/html markup by automatically 
+indenting and reformatting content. Best results are achieved 
+with valid markup, when you simply want to use this component 
+to produce clean (X)HTML rendered by templating systems such as ERb.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+Rack::Tidy relies on the power of the Tidy gem and defaults to settings
+based on convention. However, you can override these through configuration.
+
+For more information about the Rack specification, check out 
+
+http://rack.rubyforge.org/
+
+== Installation
+
+Prerequisites:
+
+  -Rack gem (sudo gem install rack)
+  -Tidy gem (sudo gem install tidy)
+
+From Gem:
+
+  $ sudo gem install webficient-rack-tidy
+
+With a local working copy:
+
+  $ git clone git://github.com/webficient/rack-tidy.git
+  $ rake build && sudo rake install
+
+== Usage
+
+Basic Usage
+-----------
+
+Rack::Tidy is implemented as a piece of Rack middleware and can be used with
+any Rack-based application. If your application includes a rackup (`.ru`) file
+or uses Rack::Builder to construct the application pipeline, simply require
+and use as follows:
+
+  require 'rack/tidy'
+
+  use Rack::Tidy
+  run app
+
+Using with Rails
+----------------
+
+Add this to your `config/environment.rb`:
+
+  # above Rails::Initializer block
+  require 'rack/tidy'
+
+  # inside Rails::Initializer block
+  config.middleware.use Rack::Tidy
+
+You should now see `Rack::Cache` listed in the middleware pipeline:
+
+  rake middleware
+    
+Configuration Options
+---------------------
+
+The Tidy gem requires setting an internal path variable that points to the Tidy library,
+which will differ per platform. Rack::Tidy defaults to '/usr/lib/libtidy.A.dylib'
+which is the default location for the Tidy gem on Mac Leopard. To override the constant,
+simply define it in your application's configuration file:
+        
+  TIDY_LIB = '/usr/lib/tidylib.so'
+
+Need Rack::Tidy to ignore certain paths? In your config, pass in an optional array of paths:
+
+  # Rails example
+  config.middleware.use Rack::Tidy, 
+    :ignore_paths => ['/admin', '/cms']
+
+Rack::Tidy relies on convention with regard to Tidy's configuration (see Rack::Tidy::Cleaner for details). If you want to override/set attributes supported by the Tidy gem, declare them in your configuration as an optional hash:
+
+  # Rails example
+  config.middleware.use Rack::Tidy,
+    'indent-spaces' => 4
+          
+See http://tidy.sourceforge.net/docs/quickref.html for Tidy gem config options
 
 == Copyright
 
-Copyright (c) 2009 philm. See LICENSE for details.
+Copyright (c) 2009 Phil Misiowiec, Webficient LLC. See MIT-LICENSE for details.

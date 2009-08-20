@@ -5,12 +5,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rack-tidy"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Rack middleware for automatically cleaning markup using Tidy}
+    gem.description = %Q{Rack middleware for automatically cleaning markup using Tidy}
     gem.email = "phil@webficient.com"
-    gem.homepage = "http://github.com/philm/rack-tidy"
-    gem.authors = ["philm"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.homepage = "http://github.com/webficient/rack-tidy"
+    gem.authors = ["Phil Misiowiec"]
+    gem.files = FileList['lib/**/*.rb']
+    gem.add_dependency 'rake'
+    gem.add_dependency 'tidy'
   end
 
 rescue LoadError
@@ -36,9 +38,6 @@ rescue LoadError
     abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
-
-
-
 
 task :default => :test
 
