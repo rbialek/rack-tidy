@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/webficient/rack-tidy"
     gem.authors = ["Phil Misiowiec"]
     gem.files = FileList['lib/**/*.rb']
-    gem.add_dependency 'rake'
+    gem.add_dependency 'rack'
     gem.add_dependency 'tidy'
   end
 
