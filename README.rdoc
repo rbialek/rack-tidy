@@ -52,7 +52,7 @@ Add this to your `config/environment.rb`:
   # inside Rails::Initializer block
   config.middleware.use Rack::Tidy
 
-You should now see `Rack::Cache` listed in the middleware pipeline:
+You should now see `Rack::Tidy` listed in the middleware pipeline:
 
   rake middleware
     
