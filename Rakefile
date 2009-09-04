@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rake'
 
 begin
@@ -11,8 +10,8 @@ begin
     gem.homepage = "http://github.com/webficient/rack-tidy"
     gem.authors = ["Phil Misiowiec"]
     gem.files = FileList['lib/**/*.rb']
-    gem.add_dependency 'rack'
-    gem.add_dependency 'tidy'
+    gem.add_dependency 'rack', '>= 1.0.0'
+    gem.add_dependency 'tidy', '>= 1.1.2'
   end
 
 rescue LoadError

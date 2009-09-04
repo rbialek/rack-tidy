@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-tidy}
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Phil Misiowiec"]
-  s.date = %q{2009-08-20}
+  s.date = %q{2009-09-03}
   s.description = %q{Rack middleware for automatically cleaning markup using Tidy}
   s.email = %q{phil@webficient.com}
   s.extra_rdoc_files = [
@@ -35,14 +35,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rack>, [">= 0"])
-      s.add_runtime_dependency(%q<tidy>, [">= 0"])
+      s.add_runtime_dependency(%q<rack>, [">= 1.0.0"])
+      s.add_runtime_dependency(%q<tidy>, [">= 1.1.2"])
     else
-      s.add_dependency(%q<rack>, [">= 0"])
-      s.add_dependency(%q<tidy>, [">= 0"])
+      s.add_dependency(%q<rack>, [">= 1.0.0"])
+      s.add_dependency(%q<tidy>, [">= 1.1.2"])
     end
   else
-    s.add_dependency(%q<rack>, [">= 0"])
-    s.add_dependency(%q<tidy>, [">= 0"])
+    s.add_dependency(%q<rack>, [">= 1.0.0"])
+    s.add_dependency(%q<tidy>, [">= 1.1.2"])
   end
 end
