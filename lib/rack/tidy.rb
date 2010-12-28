@@ -32,15 +32,17 @@ module Rack::Tidy
   
 
   # look for libtidy lib in different oses
-  def find_libtidy_path
+  def self.find_libtidy_path
     [ "/usr/lib64/libtidy.so",    # CentOs 64bit
       "/usr/lib/libtidy.so",      # CentOs/Fedora
-      "/usr/lib/libtidy.A.dylib", # MacOS
-      "/usr/lib/tidylib.so"       # (Ubuntu)
+      "/usr/lib/tidylib.so",     # (Ubuntu)
+      "/usr/lib/libtidy.A.dylib", # MacOS / default
     ].each{|p|
       return p if File.exist?(p) rescue nil
     }
-    '/usr/lib/libtidy.A.dylib' # default
+    puts "Tidy couldn't find the libtidy library in your system"
+    puts "Run:  yum install libtidy-devel on Fedora/CentOS"
+    raise "libtidy NOT FOUND!"
   end
   
   
