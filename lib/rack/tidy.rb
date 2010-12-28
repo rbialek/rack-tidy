@@ -31,16 +31,19 @@ module Rack::Tidy
   autoload :Cleaner, 'rack/tidy/cleaner'
   
 
-  # look for libtidy lib in different oses
+  # look for libtidy lib in different OSes
   def self.find_libtidy_path
     [ "/usr/lib64/libtidy.so",    # CentOs 64bit
       "/usr/lib/libtidy.so",      # CentOs/Fedora
       "/usr/lib/tidylib.so",     # (Ubuntu)
       "/usr/lib/libtidy.A.dylib", # MacOS / default
     ].each{|p|
-      return p if File.exist?(p) rescue nil
+      if File.exist?(p) 
+        puts "Found libtidy in: #{p}"
+        return p         
+      end
     }
-    puts "Tidy couldn't find the libtidy library in your system"
+    puts "rack-tidy couldn't find the libtidy library in your system"
     puts "Run:  yum install libtidy-devel on Fedora/CentOS"
     raise "libtidy NOT FOUND!"
   end
