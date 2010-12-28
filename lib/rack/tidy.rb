@@ -30,11 +30,25 @@ require 'rack'
 module Rack::Tidy
   autoload :Cleaner, 'rack/tidy/cleaner'
   
+
+  # look for libtidy lib in different oses
+  def find_libtidy_path
+    [ "/usr/lib64/libtidy.so",    # CentOs 64bit
+      "/usr/lib/libtidy.so",      # CentOs/Fedora
+      "/usr/lib/libtidy.A.dylib", # MacOS
+      "/usr/lib/tidylib.so"       # (Ubuntu)
+    ].each{|p|
+      return p if File.exist?(p) rescue nil
+    }
+    '/usr/lib/libtidy.A.dylib' # default
+  end
+  
+  
   # Specify path of Tidy library, e.g.
   #   "/usr/lib/libtidy.A.dylib" (Mac; also the default if not set)
   #   "/usr/lib/tidylib.so" (Ubuntu)
   #   "/usr/lib/libtidy-0.99.so.0" (Fedora/CentOS)
-  TIDY_LIB = defined?(::TIDY_LIB) ? ::TIDY_LIB : '/usr/lib/libtidy.A.dylib'
+  TIDY_LIB = defined?(::TIDY_LIB) ? ::TIDY_LIB : find_libtidy_path
   
   # Create a new Rack::Tidy middleware component that cleans text/html markup
   # using the Tidy gem. The +options+ Hash can be used to specify which paths
