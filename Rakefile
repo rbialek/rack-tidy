@@ -6,9 +6,9 @@ begin
     gem.name = "rack-tidy"
     gem.summary = %Q{Rack middleware for automatically cleaning markup using Tidy}
     gem.description = %Q{Rack middleware for automatically cleaning markup using Tidy}
-    gem.email = "phil@webficient.com"
-    gem.homepage = "http://github.com/webficient/rack-tidy"
-    gem.authors = ["Phil Misiowiec"]
+    gem.email = "rbialek@gmail.com"
+    gem.homepage = "http://github.com/rbialek/rack-tidy"
+    gem.authors = ["Phil Misiowiec","Robert Bialek"]
     gem.files = FileList['lib/**/*.rb']
     gem.add_dependency 'rack', '>= 1.0.0'
     gem.add_dependency 'tidy', '>= 1.1.2'
